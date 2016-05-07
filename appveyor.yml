@@ -26,10 +26,3 @@ artifacts:
   name: nuget_package
 - path: '\Releases\*'
   name: installer
-deploy:
-- provider: NuGet
-  api_key:
-    secure: yybUOFgBuGVpbmOVZxsurC8OpkClzt9dR+/54WpMWcq6b6oyMatciaelRPnXsjRn
-  artifact: nuget_package
-  on:
-    branch: api

@@ -30,5 +30,6 @@ Write-Host "===================================================="
 
 
 Write-Host "===================================================="
-& ls $env:APPVEYOR_BUILD_FOLDER + "\Releases"
+$releases = $env:APPVEYOR_BUILD_FOLDER + "\Releases"
+& ls $releases
 Write-Host "===================================================="

@@ -11,7 +11,7 @@ Write-Host "nuspec path: " + $path
 $basePath = $env:APPVEYOR_BUILD_FOLDER + "\Output\Release"
 & nuget pack $path -Version $env:APPVEYOR_BUILD_VERSION -Properties Configuration=Release -BasePath $basePath
 
-$nupkgPath = "Wox." + $env:APPVEYOR_BUILD_VERSION + ".nupkg"
+$nupkgPath = $env:APPVEYOR_BUILD_FOLDER + "\Wox." + $env:APPVEYOR_BUILD_VERSION + ".nupkg"
 Write-Host "nupkg path: " + $nupkgPath
 
 $squirrel_path = $env:APPVEYOR_BUILD_FOLDER + "\packages\squirrel*\tools\Squirrel.exe"

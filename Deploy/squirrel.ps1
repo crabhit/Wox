@@ -15,9 +15,14 @@ $nupkgPath = "Wox." + $env:APPVEYOR_BUILD_VERSION + ".nupkg"
 Write-Host "nupkg path: " + $nupkgPath
 
 $squirrel_path = $env:APPVEYOR_BUILD_FOLDER + "\packages\squirrel*\tools\Squirrel.exe"
+Write-Host "squirrel path: " + $nupkgPath
 & $squirrel_path --releasify $nupkgPath
 
 
 Write-Host "===================================================="
 & ls
+Write-Host "===================================================="
+
+Write-Host "===================================================="
+& ls $basePath
 Write-Host "===================================================="

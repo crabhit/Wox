@@ -1,9 +1,21 @@
-$path = $env:APPVEYOR_BUILD_FOLDER + "\Deploy\wox.plugin.nuspec"
+Write-Host "===================================================="
+& ls
+Write-Host "===================================================="
 
-$current_path = Convert-Path .
-Write-Host "Current path: " + $current_path
-Write-Host "Target path: " + $path
 
-& nuget pack $path -Version $env:APPVEYOR_BUILD_VERSION -Properties Configuration=Release
+$currentPath = Convert-Path .
+Write-Host "Current path: " + $currentPath
 
-& squirrel --releasify "Wox." + $env:APPVEYOR_BUILD_VERSION + ".nupkg"
+$path = $env:APPVEYOR_BUILD_FOLDER + "\Deploy\wox.nuspec"
+Write-Host "nuspec path: " + $path
+$basePath = "\Output\Release"
+& nuget pack $path -Version $env:APPVEYOR_BUILD_VERSION -Properties Configuration=Release -BasePath $basePath
+
+$nupkgPath = "Wox." + $env:APPVEYOR_BUILD_VERSION + ".nupkg"
+Write-Host "nupkg path: " + $nupkgPath
+& squirrel --releasify $nupkgPath
+
+
+Write-Host "===================================================="
+& ls
+Write-Host "===================================================="

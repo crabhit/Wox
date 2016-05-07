@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using Squirrel;
 using Wox.CommandArgs;
 using Wox.Core.Plugin;
 using Wox.Helper;
@@ -51,11 +51,18 @@ namespace Wox
                 CommandArgsFactory.Execute(e.Args.ToList());
             });
         }
+        private async void OnActivated(object sender, EventArgs e)
+        {
+            using (var mgr = new UpdateManager(@"C:\Users\Ricky\Documents\GitHub\Wox\Releases"))
+            {
+                await mgr.UpdateApp();
+            }
+        }
 
         [Conditional("RELEASE")]
         private void RegisterUnhandledException()
         {
-            // let exception throw as normal is better for Debug
+            // let exception throw as normal is better for Debug 
             DispatcherUnhandledException += ErrorReporting.DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += ErrorReporting.UnhandledExceptionHandle;
         }
@@ -95,5 +102,7 @@ namespace Wox
                 _saved = true;
             }
         }
+
+
     }
 }

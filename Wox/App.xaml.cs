@@ -24,6 +24,7 @@ namespace Wox
         [STAThread]
         public static void Main()
         {
+            RegisterAppDomainUnhandledException();
             if (SingleInstance<App>.InitializeAsFirstInstance(Unique))
             {
                 var application = new App();
@@ -38,7 +39,8 @@ namespace Wox
             Stopwatch.Debug("Startup Time", () =>
             {
                 base.OnStartup(e);
-                RegisterUnhandledException();
+
+                RegisterDispatcherUnhandledException();
 
                 ImageLoader.PreloadImages();
 
@@ -65,10 +67,16 @@ namespace Wox
         }
 
         [Conditional("RELEASE")]
-        private void RegisterUnhandledException()
+        private void RegisterDispatcherUnhandledException()
         {
             // let exception throw as normal is better for Debug 
             DispatcherUnhandledException += ErrorReporting.DispatcherUnhandledException;
+        }
+
+        [Conditional("RELEASE")]
+        private static void RegisterAppDomainUnhandledException()
+        {
+            // let exception throw as normal is better for Debug 
             AppDomain.CurrentDomain.UnhandledException += ErrorReporting.UnhandledExceptionHandle;
         }
 

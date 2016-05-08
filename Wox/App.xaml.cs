@@ -53,9 +53,9 @@ namespace Wox
         }
         private async void OnActivated(object sender, EventArgs e)
         {
-            using (var mgr = new UpdateManager(@"C:\Users\Ricky\Documents\GitHub\Wox\Releases"))
+            using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/Wox-launcher/Wox"))
             {
-                await mgr.UpdateApp();
+                await mgr.Result.UpdateApp();
             }
         }
 

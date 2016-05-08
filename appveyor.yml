@@ -24,5 +24,7 @@ artifacts:
   name: zipped_binary
 - path: '*.nupkg'
   name: nuget_package
-- path: '\Releases\*'
+- path: '\Releases\*.exe'
+  name: installer
+- path: '\Releases\*.nupkg'
   name: installer

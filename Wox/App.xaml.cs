@@ -54,6 +54,7 @@ namespace Wox
         }
         private void OnActivated(object sender, EventArgs e)
         {
+            // test update
             Task.Run(() =>
             {
                 using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/Wox-launcher/Wox"))

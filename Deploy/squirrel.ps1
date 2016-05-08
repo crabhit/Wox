@@ -20,7 +20,7 @@ $releasesPath = $env:APPVEYOR_BUILD_FOLDER + "\Releases"
 Write-Host "release path: " + $releasesPath
 $cmd = $squirrelPath + " --releasify " + $nupkgPath + " --releaseDir " + $releasesPath
 Write-Host "cmd: " + $cmd
-
+get-command $squirrelPath
 & $squirrelPath --releasify $nupkgPath --releaseDir $releasesPath
 
 

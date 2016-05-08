@@ -16,9 +16,9 @@ after_test:
 - ps: >-
     .\Deploy\nuget.ps1
     
-    .\Deploy\build-release.ps1
+    .\Deploy\binary_zip.ps1
     
-    .\Deploy\squirrel.ps1
+    .\Deploy\squirrel_installer.ps1
 artifacts:
 - path: 'Wox-*.zip'
   name: zipped_binary

@@ -11,4 +11,5 @@ Write-Host "nupkg path: " + $nupkgPath
 # must use Squirrel.com, Squirrel.exe will produce nothing 
 $squirrelPath = $env:APPVEYOR_BUILD_FOLDER + "\packages\squirrel*\tools\Squirrel.com"
 Write-Host "squirrel path: " + $squirrelPath
-& $squirrelPath --releasify $nupkgPath
+$iconPath = $env:APPVEYOR_BUILD_FOLDER + "\Wox\Images\app.png"
+& $squirrelPath --releasify $nupkgPath --setupIcon --no-msi

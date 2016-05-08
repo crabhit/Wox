@@ -28,3 +28,5 @@ artifacts:
   name: installer
 - path: '\Releases\*.nupkg'
   name: installer
+- path: 'Releases\RELEASES'
+  name: installer

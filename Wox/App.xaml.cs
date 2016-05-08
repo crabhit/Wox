@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using Squirrel;
 using Wox.CommandArgs;
@@ -51,12 +52,15 @@ namespace Wox
                 CommandArgsFactory.Execute(e.Args.ToList());
             });
         }
-        private async void OnActivated(object sender, EventArgs e)
+        private void OnActivated(object sender, EventArgs e)
         {
-            using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/Wox-launcher/Wox"))
+            Task.Run(() =>
             {
-                await mgr.Result.UpdateApp();
-            }
+                using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/Wox-launcher/Wox"))
+                {
+                    mgr.Result.UpdateApp().Wait();
+                }
+            });
         }
 
         [Conditional("RELEASE")]
@@ -95,7 +99,7 @@ namespace Wox
             // but if sessionending is not called, exit won't be called when log off / shutdown
             if (!_saved)
             {
-                var vm = (MainViewModel) Window.DataContext;
+                var vm = (MainViewModel)Window.DataContext;
                 vm.Save();
                 PluginManager.Save();
                 ImageLoader.Save();

@@ -5,10 +5,9 @@
     <title>Wox</title>
     <version>$version$</version>
     <authors>happlebao</authors>
-    <licenseUrl>https://github.com/Wox-launcher/Wox/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Wox-launcher/Wox</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Wox-launcher/Wox/master/Wox/Images/app.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A windows launcher for windows</description>
     <tags>wox</tags>
   </metadata>
   <files>

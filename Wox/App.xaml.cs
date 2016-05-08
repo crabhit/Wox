@@ -21,7 +21,8 @@ namespace Wox
         public static MainWindow Window { get; private set; }
         public static PublicAPIInstance API { get; private set; }
         private bool _saved;
-        private Task<UpdateManager> _Updater;
+        private Task<UpdateManager> _updater;
+        private NotifyIconManager _notifyIcon;
 
         [STAThread]
         public static void Main()
@@ -52,7 +53,7 @@ namespace Wox
                 PluginManager.InitializePlugins(API, pluginsSettings);
 
                 Window = new MainWindow(mainVM._settings, mainVM);
-                NotifyIconManager notifyIconManager = new NotifyIconManager(API);
+                _notifyIcon = new NotifyIconManager(API);
                 CommandArgsFactory.Execute(e.Args.ToList());
             });
         }
@@ -62,9 +63,9 @@ namespace Wox
             {
                 Task.Run(() =>
                 {
-                    using (_Updater = UpdateManager.GitHubUpdateManager("https://github.com/Wox-launcher/Wox"))
+                    using (_updater = UpdateManager.GitHubUpdateManager("https://github.com/Wox-launcher/Wox"))
                     {
-                        _Updater.Result.UpdateApp().Wait();
+                        _updater.Result.UpdateApp().Wait();
                     }
                 });
             }
@@ -103,13 +104,13 @@ namespace Wox
         private void OnExit(object sender, ExitEventArgs e)
         {
             Save();
-            _Updater.Dispose();
+            _updater.Dispose();
         }
 
         private void OnSessionEnding(object sender, SessionEndingCancelEventArgs e)
         {
             Save();
-            _Updater.Dispose();
+            _updater.Dispose();
         }
 
         private void Save()

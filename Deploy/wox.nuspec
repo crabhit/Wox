@@ -11,6 +11,6 @@
     <description>Wox - a launcher for windows</description>
   </metadata>
   <files>
-    <file src="*.*" target="lib\net45\" exclude="*.nupkg;*.vshost.*"/>
+    <file src="..\Output\Release\**\*.*" target="lib\net45\" exclude="*.nupkg;*.vshost.*"/>
   </files>
 </package>

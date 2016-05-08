@@ -11,6 +11,7 @@ using Wox.Helper;
 using Wox.Infrastructure.Image;
 using Wox.ViewModel;
 using Stopwatch = Wox.Infrastructure.Stopwatch;
+using Wox.Infrastructure.Logger;
 
 namespace Wox
 {
@@ -20,6 +21,7 @@ namespace Wox
         public static MainWindow Window { get; private set; }
         public static PublicAPIInstance API { get; private set; }
         private bool _saved;
+        private Task<UpdateManager> _Updater;
 
         [STAThread]
         public static void Main()
@@ -56,14 +58,20 @@ namespace Wox
         }
         private void OnActivated(object sender, EventArgs e)
         {
-            // test update
-            Task.Run(() =>
+            try
             {
-                using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/Wox-launcher/Wox"))
+                Task.Run(() =>
                 {
-                    mgr.Result.UpdateApp().Wait();
-                }
-            });
+                    using (_Updater = UpdateManager.GitHubUpdateManager("https://github.com/Wox-launcher/Wox"))
+                    {
+                        _Updater.Result.UpdateApp().Wait();
+                    }
+                });
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception);
+            }
         }
 
         [Conditional("RELEASE")]
@@ -95,11 +103,13 @@ namespace Wox
         private void OnExit(object sender, ExitEventArgs e)
         {
             Save();
+            _Updater.Dispose();
         }
 
         private void OnSessionEnding(object sender, SessionEndingCancelEventArgs e)
         {
             Save();
+            _Updater.Dispose();
         }
 
         private void Save()

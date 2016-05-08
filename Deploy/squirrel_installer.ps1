@@ -12,4 +12,4 @@ Write-Host "nupkg path: " + $nupkgPath
 $squirrelPath = $env:APPVEYOR_BUILD_FOLDER + "\packages\squirrel*\tools\Squirrel.com"
 Write-Host "squirrel path: " + $squirrelPath
 $iconPath = $env:APPVEYOR_BUILD_FOLDER + "\Wox\Images\app.png"
-& $squirrelPath --releasify $nupkgPath --setupIcon --no-msi
+& $squirrelPath --releasify $nupkgPath --setupIcon $iconPath --no-msi
